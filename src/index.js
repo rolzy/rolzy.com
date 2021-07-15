@@ -6,7 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 function Square(props) {
   return (
-    <button className="square" onClick={props.onClick}>
+    <button className={props.style} onClick={props.onClick}>
       {props.value}
     </button>
   );
@@ -18,28 +18,23 @@ class Board extends React.Component {
       <Square 
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
+        style={this.props.styles[i]}
       />
     );
   }
 
   render() {
+    const board = [];
+    for (let i=0; i < 3; i++) {
+      let squares = [];
+      for (let j=0; j < 3; j++) {
+        squares.push(this.renderSquare(3*i+j))
+      };
+      board.push(<div className="board-row">{squares}</div>);
+    };
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div> 
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div> 
+        {board}
       </div>
     );
   }
@@ -54,6 +49,8 @@ class Game extends React.Component {
       }],
       stepNumber: 0,
       xIsNext: false,
+      reverse: false,
+      styles: Array(9).fill('square'),
     };
   }
 
@@ -81,10 +78,17 @@ class Game extends React.Component {
     });
   }
 
+  reverseButton() {
+    this.setState({
+      reverse: !this.state.reverse,
+    });
+  }
+
   render() {
     const history = this.state.history;
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
+    const styles = this.state.styles;
 
     const moves = history.map((step, move) => {
       const desc = move ?
@@ -92,14 +96,25 @@ class Game extends React.Component {
         'Go to game start';
       return (
         <li key={move}>
-          <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          {move && move === history.length-1
+            ? <button className="current-step" onClick={() => this.jumpTo(move)}>{desc}</button>
+            : <button onClick={() => this.jumpTo(move)}>{desc}</button>
+          }
         </li>
       );
     });
 
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      if (winner === 'Draw') {
+        status = 'Draw';
+      } else {
+        status = 'Winner: ' + winner[0];
+        const [a, b, c] = winner[1];
+        styles[a] = 'square-win';
+        styles[b] = 'square-win';
+        styles[c] = 'square-win';
+      }
     } else {
       status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
     }
@@ -110,11 +125,16 @@ class Game extends React.Component {
           <Board 
             squares={current.squares}
             onClick={(i) => this.handleClick(i)}
+            styles={styles}
           />
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <button onClick={() => this.reverseButton()}>Reverse</button>
+          {!this.state.reverse
+            ? <ol>{moves}</ol>
+            : <ol className="ol-reverse">{moves}</ol>
+          }
         </div>
       </div>
     );
@@ -135,8 +155,11 @@ function calculateWinner(squares) {
   for (let i=0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      return [squares[a], [a, b, c]];
     }
+  }
+  if (!squares.includes(null)) {
+    return 'Draw';
   }
   return null;
 }

@@ -13,7 +13,18 @@ code {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 0px;
+}
+
+.current-step {
+  font-weight: bold;
+
+}
+.ol-reverse {
+  transform: rotate(180deg);
+}
+.ol-reverse > li {
+  transform: rotate(-180deg);
 }
 
 .board-row::after {
@@ -26,7 +37,7 @@ ol, ul {
   margin-bottom: 10px;
 }
 
-.square {
+.square, .square-win {
   background: #fff;
   border: 1px solid #999;
   float: left;
@@ -39,6 +50,10 @@ ol, ul {
   padding: 0;
   text-align: center;
   width: 34px;
+}
+
+.square-win {
+  background: #4CAF50;
 }
 
 .square:focus {
@@ -55,5 +70,5 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 50px;
 }
