@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: "My First Gatsby Site",
+    title: "Rolzyland",
   },
   plugins: [
     "gatsby-plugin-image",
