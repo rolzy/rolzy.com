@@ -13,7 +13,14 @@ code {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding-left: 0px;
+}
+
+.ol-reverse {
+  transform: rotate(180deg);
+}
+.ol-reverse > li {
+  transform: rotate(-180deg);
 }
 
 .board-row::after {
@@ -59,5 +66,5 @@ ol, ul {
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-left: 50px;
 }
