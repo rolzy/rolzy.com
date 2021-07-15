@@ -16,6 +16,10 @@ ol, ul {
   padding-left: 0px;
 }
 
+.current-step {
+  font-weight: bold;
+
+}
 .ol-reverse {
   transform: rotate(180deg);
 }
