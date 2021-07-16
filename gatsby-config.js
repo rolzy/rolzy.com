@@ -3,6 +3,7 @@ module.exports = {
     title: "Rolzyland",
   },
   plugins: [
+    "gatsby-plugin-material-ui",
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     {
