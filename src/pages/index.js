@@ -1,6 +1,5 @@
 import * as React from "react"
 import Layout from '../components/layout'
-import { StaticImage } from 'gatsby-plugin-image'
 
 // styles
 const pageStyles = {
@@ -131,11 +130,9 @@ const links = [
 const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
-      <p>My name is Roland Thompson.</p>
-      <StaticImage
-        alt="Clifford"
-        src="../images/1.PNG"
-      />
+      <p>My name is Roland Thompson.  I put up tips and tricks that I have 
+    gathered over the years on topics about coding and computers. There are 
+    links to my projects that you can try out too!</p>
     </Layout>
   )
 }
