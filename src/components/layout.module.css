@@ -4,9 +4,14 @@
   flex-grow: 1;
 }
 
-.container {
-  max-width: 500px;
+.content {
+  max-width: 800px;
   margin: auto;
+  background-color: #f5f5dc;
+  margin-top: 25px;
+  padding: 1px 30px;
+  border-radius: 10px;
+  text-align: center;
 }
 
 .heading {

@@ -130,9 +130,12 @@ const links = [
 const IndexPage = () => {
   return (
     <Layout pageTitle="Home Page">
-      <p>My name is Roland Thompson.  I put up tips and tricks that I have 
-    gathered over the years on topics about coding and computers. There are 
-    links to my projects that you can try out too!</p>
+      <p>My name is Roland Thompson.</p>
+
+      <p>I put up tips and tricks that I have gathered over the years on topics about coding and computers.</p>
+
+      <p>There are 
+      links to my projects that you can try out too!</p>
     </Layout>
   )
 }
