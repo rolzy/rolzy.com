@@ -1,6 +1,13 @@
 import * as React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 import { 
+  root,
   container,
   heading,
   navLinks,
@@ -21,24 +28,30 @@ const Layout = ({ pageTitle, children }) => {
   `)
 
   return (
-    <main className={container}>
+    <main className={root}>
       <title>{pageTitle} | {data.site.siteMetadata.title}</title>
-      <p className={siteTitle}>{data.site.siteMetadata.title}</p>
-      <nav>
-        <ul className={navLinks}>
-          <li className={navLinkItem}>
-            <Link to="/" className={navLinkText}>Home</Link>
-          </li>
-          <li className={navLinkItem}>
+      <AppBar position="static">
+        <Toolbar>
+          {/*
+          <IconButton edge="start" color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          */}
+          <Typography variant="h6">
+            <Link to="/" className={siteTitle}>{data.site.siteMetadata.title}</Link>
+          </Typography>
+          <Typography variant="h6">
             <Link to="/about" className={navLinkText}>About</Link>
-          </li>
-          <li className={navLinkItem}>
+          </Typography>
+          <Typography variant="h6">
             <Link to="/blog" className={navLinkText}>Blog</Link>
-          </li>
-        </ul>
-      </nav>
-      <h1 className={heading}>{pageTitle}</h1>
-      {children}
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <div className={container}>
+        <h1 className={heading}>{pageTitle}</h1>
+        {children}
+      </div>
     </main>
   )
 }
