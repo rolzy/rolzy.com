@@ -3,15 +3,13 @@ import { Link, useStaticQuery, graphql } from 'gatsby'
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import GitHubIcon from '@material-ui/icons/GitHub';
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import { 
   root,
-  container,
+  content,
   heading,
-  navLinks,
-  navLinkItem,
   navLinkText,
   siteTitle,
 } from './layout.module.css'
@@ -26,6 +24,7 @@ const Layout = ({ pageTitle, children }) => {
       }
     }
   `)
+
 
   return (
     <main className={root}>
@@ -43,12 +42,20 @@ const Layout = ({ pageTitle, children }) => {
           <Typography variant="h6">
             <Link to="/about" className={navLinkText}>About</Link>
           </Typography>
-          <Typography variant="h6">
+          <Typography variant="h6" style={{ flex: 1 }}>
             <Link to="/blog" className={navLinkText}>Blog</Link>
           </Typography>
+          <div>
+            <IconButton onClick={() => { window.open('https://github.com/rolzy', '_blank') }} color="inherit" aria-controls="menu-appbar">
+              <GitHubIcon />
+            </IconButton>
+            <IconButton onClick={() => { window.open('https://www.linkedin.com/in/roland-thompson-404b24148/', '_blank') }} color="inherit">
+              <LinkedInIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
-      <div className={container}>
+      <div className={content}>
         <h1 className={heading}>{pageTitle}</h1>
         {children}
       </div>
