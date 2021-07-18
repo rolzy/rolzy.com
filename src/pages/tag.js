@@ -3,6 +3,8 @@ import PropTypes from "prop-types"
 
 import { Link, graphql } from "gatsby"
 
+import Layout from '../components/layout'
+
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext
   const { edges, totalCount } = data.allMdx
@@ -11,21 +13,18 @@ const Tags = ({ pageContext, data }) => {
   } tagged with "${tag}"`
 
   return (
-    <div>
-      <h1>{tagHeader}</h1>
+    <Layout pageTitle={tagHeader}>
       <ul>
-    {edges.map(({ node }) => {
-      const { slug } = node.slug
-      const { title } = node.frontmatter
-      return (
-        <li key={slug}>
-          <Link to={slug}>{title}</Link>
-        </li>
-      )
-    })}
+        {edges.map(({ node }) => {
+          const { title } = node.frontmatter
+          return (
+            <li key={node.slug}>
+              <Link to={"/" + node.slug}>{title}</Link>
+            </li>
+          )
+        })}
     </ul>
-    <Link to="/tags">All tags</Link>
-  </div>
+  </Layout>
   )
 }
 
@@ -42,9 +41,7 @@ Tags.propTypes = {
             frontmatter: PropTypes.shape({
               title: PropTypes.string.isRequired,
             }),
-            field: PropTypes.shape({
-              slug: PropTypes.string.isRequired,
-            }),
+            slug: PropTypes.string.isRequired,
           }),
         }).isRequired
       ),

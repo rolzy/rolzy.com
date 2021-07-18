@@ -1,3 +1,7 @@
+ul {
+  list-style-position: inside;
+}
+
 .root {
   margin: auto;
   font-family: sans-serif;
