@@ -4,7 +4,7 @@ const _ = require("lodash")
 exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions
 
-  const blogPostTemplate = path.resolve("src/pages/blog.js")
+  const blogPostTemplate = path.resolve("src/pages/blogpost.js")
   const tagTemplate = path.resolve("src/pages/tag.js")
 
   const result = await graphql(`
@@ -16,7 +16,9 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         edges {
           node {
             slug
+            id
             frontmatter {
+              title
               tags
             }
           }
@@ -39,8 +41,12 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   posts.forEach(({ node }) => {
     createPage({
-      path: node.slug,
+      path: `/blog/${node.slug}/`,
       component: blogPostTemplate,
+      context: {
+        id: node.id,
+        title: node.frontmatter.title,
+      },
     })
   })
 
