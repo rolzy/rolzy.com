@@ -2,10 +2,12 @@ import * as React from 'react'
 import { graphql } from 'gatsby'
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import Layout from '../components/layout'
+import TagsList from '../components/tagslist'
 
 const BlogPage = ({ data }) => {
   return (
     <Layout pageTitle="My Blog Posts">
+      <TagsList />
       {
         data.allMdx.nodes.map(node => (
           <article key={node.id}>
