@@ -8,6 +8,7 @@ const BlogPage = ({ data }) => {
   return (
     <Layout pageTitle="My Blog Posts">
       <TagsList />
+      <hr />
       {
         data.allMdx.nodes.map(node => (
           <article key={node.id}>

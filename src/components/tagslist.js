@@ -3,6 +3,11 @@ import React from "react"
 import kebabCase from "lodash/kebabCase"
 
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import { 
+  tagList,
+  tagBlock,
+  tagLink
+} from './tagslist.module.css'
 
 const TagsList = () => {
   const data = useStaticQuery(graphql`
@@ -17,18 +22,14 @@ const TagsList = () => {
   `)
 
   return (
-    <div>
-      <div>
-        <ul>
-          {data.allMdx.group.map(tag => (
-            <li key={tag.fieldValue}>
-              <Link to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-                {tag.fieldValue} ({tag.totalCount})
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </div>
+    <div className={tagList}>
+      {data.allMdx.group.map(tag => (
+        <div className={tagBlock}>
+          <Link className={tagLink} to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+            {tag.fieldValue} ({tag.totalCount})
+          </Link>
+        </div>
+      ))}
     </div>
   )
 }
