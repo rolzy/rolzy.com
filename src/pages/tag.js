@@ -14,16 +14,17 @@ const Tags = ({ pageContext, data }) => {
 
   return (
     <Layout pageTitle={tagHeader}>
-      <ul>
+      <table>
         {edges.map(({ node }) => {
-          const { title } = node.frontmatter
+          const { title, date } = node.frontmatter
           return (
-            <li key={node.slug}>
-              <Link to={"/" + node.slug}>{title}</Link>
-            </li>
+            <tr>
+              <td><Link to={"/" + node.slug}>{title}</Link></td>
+              <td>{"(" + date + ")"}</td>
+            </tr>
           )
         })}
-    </ul>
+    </table>
   </Layout>
   )
 }
@@ -40,6 +41,7 @@ Tags.propTypes = {
           node: PropTypes.shape({
             frontmatter: PropTypes.shape({
               title: PropTypes.string.isRequired,
+              date: PropTypes.string.isRequired,
             }),
             slug: PropTypes.string.isRequired,
           }),
@@ -64,6 +66,7 @@ query($tag: String) {
         slug
         frontmatter {
           title
+          date
         }
       }
     }

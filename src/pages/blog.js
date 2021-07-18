@@ -17,6 +17,7 @@ const BlogPage = ({ data }) => {
             <MDXRenderer>
               {node.body}
             </MDXRenderer>
+            <hr />
           </article>
         ))
       }
