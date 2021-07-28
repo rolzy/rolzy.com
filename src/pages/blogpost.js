@@ -3,14 +3,18 @@ import PropTypes from "prop-types"
 import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { graphql } from 'gatsby'
 import Layout from '../components/layout'
+import {
+  blogPost,
+  blogDate,
+} from './blog.module.css'
 
 const Blogpost = ({ pageContext, data }) => {
   return (
     <Layout pageTitle={pageContext.title}>
     {
       data.allMdx.nodes.map(node => (
-        <article key={node.id}>
-          <p>Posted: {node.frontmatter.date}</p>
+        <article className={blogPost} key={node.id}>
+          <p className={blogDate}>Posted: {node.frontmatter.date}</p>
           <MDXRenderer>
             {node.body}
           </MDXRenderer>
@@ -28,13 +32,16 @@ Blogpost.propTypes = {
   }),
   data: PropTypes.shape({
     allMdx: PropTypes.shape({
-      nodes: PropTypes.shape({
-        frontmatter: PropTypes.shape({
-          title: PropTypes.string.isRequired,
-          date: PropTypes.string.isRequired,
-        }),
-        body: PropTypes.string.isRequired,
-      }),
+      nodes: PropTypes.arrayOf(
+        PropTypes.shape({
+          frontmatter: PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            date: PropTypes.string.isRequired,
+          }),
+          body: PropTypes.string.isRequired,
+          id: PropTypes.string.isRequired,
+        }).isRequired
+      ),
     }),
   }),
 }
@@ -50,6 +57,7 @@ export const query = graphql`
           title
         }
         body
+        id
       }
     }
   }
