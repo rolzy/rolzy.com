@@ -1,0 +1,32 @@
+.blogPost {
+  text-align: left;
+}
+
+.blogDate {
+  text-align: center;
+}
+
+.postTitle {
+  text-decoration: none;
+  color: inherit;
+}
+
+.postInfo {
+  width: 800px;
+  overflow: hidden;
+}
+
+.postAbstract {
+  float: left;
+  text-align: left;
+  width: 600px;
+  color: dimgrey;
+  font-style: italic;
+  font-size: 15px;
+}
+
+.postTags {
+  overflow: hidden;
+  margin: 15px 0px 0px 15px;
+  text-align: left;
+}
