@@ -24,7 +24,7 @@ const TagsList = () => {
   return (
     <div className={tagList}>
       {data.allMdx.group.map(tag => (
-        <div className={tagBlock}>
+        <div key={tag.fieldValue} className={tagBlock}>
           <Link className={tagLink} to={`/tags/${kebabCase(tag.fieldValue)}/`}>
             {tag.fieldValue} ({tag.totalCount})
           </Link>
