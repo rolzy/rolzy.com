@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
+import LangContext from '../context/LangContext';
 import { 
   root,
   content,
@@ -30,62 +31,52 @@ const Layout = ({ pageTitle, children }) => {
     }
   `)
 
-  const [lang, setLang] = React.useState('en');
-
-  function changeLang() {
-    if (lang === 'ja') {
-      I18n.setLanguage('en');
-      setLang('en');
-      console.log(lang);
-    } else {
-      I18n.setLanguage('ja');
-      setLang('ja');
-      console.log(lang);
-    }
-  }
-
   return (
-    <main className={root}>
-      <title>{pageTitle} | {data.site.siteMetadata.title}</title>
-      <AppBar position="static">
-        <Toolbar>
-          {/*
-          <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
-          </IconButton>
-          */}
-          <Typography variant="h6">
-            <Link to="/" className={siteTitle}>{data.site.siteMetadata.title}</Link>
-          </Typography>
-          <Typography variant="h6">
-            <Link to="/about" className={navLinkText}>{I18n.get('about')}</Link>
-          </Typography>
-          <Typography variant="h6" style={{ flex: 1 }}>
-            <Link to="/blog" className={navLinkText}>{I18n.get('blog')}</Link>
-          </Typography>
-          <div>
-            <IconButton onClick={() => { window.open('https://github.com/rolzy', '_blank') }} color="inherit" aria-controls="menu-appbar">
-              <GitHubIcon />
-            </IconButton>
-            <IconButton onClick={() => { window.open('https://www.linkedin.com/in/roland-thompson-404b24148/', '_blank') }} color="inherit">
-              <LinkedInIcon />
-            </IconButton>
-            <Button 
-              variant="contained"
-              color="primary"
-              disableElevation
-              onClick={() => { changeLang() }}
-            >
-              {I18n.get('changeLang')}
-            </Button>
+    <LangContext.Consumer>
+      {lang => (
+        <main className={root}>
+          <title>{pageTitle} | {data.site.siteMetadata.title}</title>
+          <AppBar position="static">
+            <Toolbar>
+              {/*
+              <IconButton edge="start" color="inherit" aria-label="menu">
+                <MenuIcon />
+              </IconButton>
+              */}
+              <Typography variant="h6">
+                <Link to="/" className={siteTitle}>{data.site.siteMetadata.title}</Link>
+              </Typography>
+              <Typography variant="h6">
+                <Link to="/about" className={navLinkText}>{I18n.get('about')}</Link>
+              </Typography>
+              <Typography variant="h6" style={{ flex: 1 }}>
+                <Link to="/blog" className={navLinkText}>{I18n.get('blog')}</Link>
+              </Typography>
+              <div>
+                <IconButton onClick={() => { window.open('https://github.com/rolzy', '_blank') }} color="inherit" aria-controls="menu-appbar">
+                  <GitHubIcon />
+                </IconButton>
+                <IconButton onClick={() => { window.open('https://www.linkedin.com/in/roland-thompson-404b24148/', '_blank') }} color="inherit">
+                  <LinkedInIcon />
+                </IconButton>
+                <Button 
+                  variant="contained"
+                  color="primary"
+                  disableElevation
+                  onClick={lang.toggleLang}
+                >
+                  {I18n.get('changeLang')}
+                </Button>
+              </div>
+            </Toolbar>
+          </AppBar>
+          <div className={content}>
+            <h1 className={heading}>{pageTitle}</h1>
+            {children}
           </div>
-        </Toolbar>
-      </AppBar>
-      <div className={content}>
-        <h1 className={heading}>{pageTitle}</h1>
-        {children}
-      </div>
-    </main>
+        </main>
+      )}
+    </LangContext.Consumer>
   )
 }
 
