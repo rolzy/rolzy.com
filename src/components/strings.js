@@ -10,6 +10,7 @@ export const strings = {
     aboutpage: 'About Me',
     aboutme: '<p>Hello There!</p> \
     <p>That is me with a deer in Nara, Japan.</p>',
+    blogpage: 'My Blog Posts',
   },
   ja: {
     changeLang: 'English',
@@ -22,5 +23,6 @@ export const strings = {
     aboutpage: 'プロフィール',
     aboutme: '<p>こんにちは！</p> \
     <p>写真の右側が私です。</p>',
+    blogpage: '記事一覧ページ',
   },
 };

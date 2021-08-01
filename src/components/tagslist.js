@@ -8,11 +8,18 @@ import {
   tagBlock,
   tagLink
 } from './tagslist.module.css'
+import LangContext from "../context/LangContext";
 
 const TagsList = () => {
   const data = useStaticQuery(graphql`
     query {
-      allMdx(limit: 2000) {
+      eng: allMdx(limit: 2000, filter: {frontmatter: {lang: {eq: "en"}}}) {
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+        }
+      }
+      jpn: allMdx(limit: 2000, filter: {frontmatter: {lang: {eq: "ja"}}}) {
         group(field: frontmatter___tags) {
           fieldValue
           totalCount
@@ -22,15 +29,30 @@ const TagsList = () => {
   `)
 
   return (
-    <div className={tagList}>
-      {data.allMdx.group.map(tag => (
-        <div key={tag.fieldValue} className={tagBlock}>
-          <Link className={tagLink} to={`/tags/${kebabCase(tag.fieldValue)}/`}>
-            {tag.fieldValue} ({tag.totalCount})
-          </Link>
+    <LangContext.Consumer>
+      {lang => (
+        <div className={tagList}>
+          {lang.lang == 'en'
+            ?
+              data.eng.group.map(tag => (
+                <div key={tag.fieldValue} className={tagBlock}>
+                  <Link className={tagLink} to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+                    {tag.fieldValue} ({tag.totalCount})
+                  </Link>
+                </div>
+              ))
+            :
+              data.jpn.group.map(tag => (
+                <div key={tag.fieldValue} className={tagBlock}>
+                  <Link className={tagLink} to={`/tags/${kebabCase(tag.fieldValue)}/`}>
+                    {tag.fieldValue} ({tag.totalCount})
+                  </Link>
+                </div>
+              ))
+          }
         </div>
-      ))}
-    </div>
+      )}
+    </LangContext.Consumer>
   )
 }
 
