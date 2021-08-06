@@ -2,6 +2,17 @@ table {
   margin-left: auto;
   margin-right: auto;
   border-spacing: 5px 0px;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+
+table, th, td {
+  border: 1px solid #dee2e6;
+}
+
+th {
+  border-bottom-width: 2px;
 }
 
 img {

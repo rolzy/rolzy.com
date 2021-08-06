@@ -4,6 +4,11 @@ import PropTypes from "prop-types"
 import { Link, graphql } from "gatsby"
 
 import Layout from '../components/layout'
+import { I18n } from '@aws-amplify/core';
+import { strings } from '../components/strings';
+import LangContext from "../context/LangContext";
+
+I18n.putVocabularies(strings);
 
 const Tags = ({ pageContext, data }) => {
   const { tag } = pageContext
@@ -11,21 +16,42 @@ const Tags = ({ pageContext, data }) => {
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"
   } tagged with "${tag}"`
+  const jpnHeader = `${tag}に関する記事は${totalCount}件あります。`
 
   return (
-    <Layout pageTitle={tagHeader}>
-      <table>
-        {edges.map(({ node }) => {
-          const { title, date } = node.frontmatter
-          return (
-            <tr>
-              <td><Link to={"/" + node.slug}>{title}</Link></td>
-              <td>{"(" + date + ")"}</td>
-            </tr>
-          )
-        })}
-    </table>
-  </Layout>
+    <LangContext.Consumer>
+      {lang => (
+        lang.lang === 'en'
+        ?
+          <Layout pageTitle={tagHeader}>
+            <table>
+              {edges.map(({ node }) => {
+                const { title, date } = node.frontmatter
+                return (
+                  <tr>
+                    <td><Link to={"/" + node.slug}>{title}</Link></td>
+                    <td>{"(" + date + ")"}</td>
+                  </tr>
+                )
+              })}
+            </table>
+          </Layout>
+        :
+          <Layout pageTitle={jpnHeader}>
+            <table>
+              {edges.map(({ node }) => {
+                const { title, date } = node.frontmatter
+                return (
+                  <tr>
+                    <td><Link to={"/" + node.slug}>{title}</Link></td>
+                    <td>{"(" + date + ")"}</td>
+                  </tr>
+                )
+              })}
+            </table>
+          </Layout>
+      )}
+    </LangContext.Consumer>
   )
 }
 
