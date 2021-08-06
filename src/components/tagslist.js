@@ -32,7 +32,7 @@ const TagsList = () => {
     <LangContext.Consumer>
       {lang => (
         <div className={tagList}>
-          {lang.lang == 'en'
+          {lang.lang === 'en'
             ?
               data.eng.group.map(tag => (
                 <div key={tag.fieldValue} className={tagBlock}>

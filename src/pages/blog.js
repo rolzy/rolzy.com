@@ -27,7 +27,7 @@ const BlogPage = ({ data }) => {
           <TagsList />
           <hr />
           {data.allMdx.nodes.map(node => (
-            node.frontmatter.lang == lang.lang &&
+            node.frontmatter.lang === lang.lang &&
               <article key={node.id}>
                 <h2><Link to={"/blog/" + node.slug} className={postTitle}>{node.frontmatter.title}</Link></h2>
                 <p>Posted: {node.frontmatter.date}</p>

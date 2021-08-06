@@ -21,7 +21,7 @@ const Tags = ({ pageContext, data }) => {
   return (
     <LangContext.Consumer>
       {lang => (
-        lang.lang == 'en'
+        lang.lang === 'en'
         ?
           <Layout pageTitle={tagHeader}>
             <table>
