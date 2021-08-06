@@ -1,17 +1,21 @@
 import * as React from "react"
 import Layout from '../components/layout'
+import { I18n } from '@aws-amplify/core';
+import { strings } from '../components/strings';
+import LangContext from "../context/LangContext"
+
+I18n.putVocabularies(strings);
 
 // markup
 const IndexPage = () => {
   return (
-    <Layout pageTitle="Home Page">
-      <p>My name is Roland Thompson.</p>
-
-      <p>I put up tips and tricks that I have gathered over the years on topics about coding and computers.</p>
-
-      <p>There are 
-      links to my projects that you can try out too!</p>
-    </Layout>
+    <LangContext.Consumer>
+      {lang => (
+        <Layout pageTitle={I18n.get('homepage')}>
+          <div dangerouslySetInnerHTML={{ __html: I18n.get('greetings') }} />
+        </Layout>
+      )}
+    </LangContext.Consumer>
   )
 }
 
